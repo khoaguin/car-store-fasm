@@ -1,8 +1,8 @@
-# Car Store Store App
+# Car Selling Store App
 
 ![](./assets/banner.png)
 
-A Car Selling Store App Written in <span style="color: lightgreen"> FastAPI </span>, <span style="color:darkorange"> Svelte </span> and <span style="color: green"> MongoDB </span> Database
+A Car Selling Store App Written in FastAPI, Svelte and MongoDB.
 
 ## Backend
 
@@ -12,6 +12,12 @@ The backend is written in FastAPI and requires Python 3.12
 conda create -n python3.12 python=3.12
 conda activate python3.12
 pip install -r backend/requirements.txt
+```
+
+Run the backend app with
+
+```python
+python backend/app/main.py
 ```
 
 ## Frontend

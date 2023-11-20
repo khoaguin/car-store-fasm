@@ -73,6 +73,8 @@ class CarBase(MongoBaseModel):
     price: int = Field(...)
     km: int = Field(...)
     cm3: int = Field(...)
+    car_type: str = Field(...)
+    color: str = Field(...)
 
 
 class CarUpdate(MongoBaseModel):
