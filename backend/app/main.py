@@ -8,13 +8,12 @@ DB_URL = config("DB_URL", cast=str)
 DB_NAME = config("DB_NAME", cast=str)
 
 
-async def startup_db_client():
+async def startup_db_client() -> None:
     app.mongodb_client = AsyncIOMotorClient(DB_URL)
     app.mongodb = app.mongodb_client[DB_NAME]
-    print(f"{app.mongodb = }")
 
 
-async def shutdown_db_client():
+async def shutdown_db_client() -> None:
     app.mongodb_client.close()
 
 
@@ -37,6 +36,12 @@ async def some_endpoint(client: AsyncIOMotorClient = Depends(get_db_client)):
     db = client[DB_NAME]
 
 
+@app.get("/")
+def home() -> str:
+    return "hello to my car store"
+
+
 app.include_router(cars_router, prefix="/cars", tags=["cars"])
+
 if __name__ == "__main__":
     uvicorn.run("main:app", reload=True)
