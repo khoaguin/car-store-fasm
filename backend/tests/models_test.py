@@ -1,5 +1,3 @@
-from typing import Dict
-
 from app.models.car_model import CarDB
 from bson import ObjectId
 from fastapi.encoders import jsonable_encoder
