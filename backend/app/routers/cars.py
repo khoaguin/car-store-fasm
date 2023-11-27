@@ -1,10 +1,13 @@
 from typing import Dict
 
 from decouple import config
-from fastapi import APIRouter, Body, HTTPException, Request, status
+from fastapi import APIRouter, Body, Depends, HTTPException, Request, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from models.car_model import CarBase, CarDB
+from motor.motor_asyncio import AsyncIOMotorClient
+
+from ..main import get_db_client
+from ..models.car_model import CarBase, CarDB
 
 if config("DEV_MODE"):
     CAR_COLLECTION = config("CARS_COLLECTION_NAME", cast=str) + "_dev"
