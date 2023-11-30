@@ -1,6 +1,7 @@
-from app.models.car_model import CarDB
 from bson import ObjectId
 from fastapi.encoders import jsonable_encoder
+
+from backend.app.models.car_model import CarDB
 
 
 def test_car_model() -> None:

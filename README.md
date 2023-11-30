@@ -24,10 +24,10 @@ conda activate python3.12
 pip install -r backend/requirements.txt
 ```
 
-To run the backend server, do
+To run the backend server, run the following in the terminal
 
-```python
-python backend/app/main.py
+```bash
+uvicorn backend.app.main:app --reload
 ```
 
 Assuming the backend server is run at `http://localhost:8000/`, we can test it with the installed `HTTPie` Python package like below
