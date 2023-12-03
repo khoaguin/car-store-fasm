@@ -83,6 +83,8 @@ class CarUpdate(MongoBaseModel):
     """
 
     price: Optional[int] = None
+    km: Optional[int] = None
+    color: Optional[str] = None
 
 
 class CarDB(CarBase):

@@ -5,10 +5,20 @@ from httpx import AsyncClient
 
 from backend.app.main import app
 
+BASE_TEST_URL = "http://test"
+
+
+@pytest.mark.asyncio
+async def test_list_all_cars():
+    async with AsyncClient(app=app, base_url=BASE_TEST_URL) as ac:
+        response = await ac.get("/cars/all_cars")
+        assert response.status_code == 200
+        assert isinstance(response.json(), List)
+
 
 @pytest.mark.asyncio
 async def test_list_cars():
-    async with AsyncClient(app=app, base_url="http://test") as ac:
+    async with AsyncClient(app=app, base_url=BASE_TEST_URL) as ac:
         response = await ac.get("/cars/")
         assert response.status_code == 200
         assert isinstance(response.json(), List)
@@ -28,9 +38,9 @@ async def test_create_find_delete_car():
         "color": "BL",
     }
 
-    async with AsyncClient(app=app, base_url="http://test") as ac:
+    async with AsyncClient(app=app, base_url=BASE_TEST_URL) as ac:
         # test the create_car POST request
-        create_response = await ac.post("/cars/", json=test_car_data)
+        create_response = await ac.post("/cars/create_car", json=test_car_data)
         assert create_response.status_code == 201
         create_response_data: Dict = create_response.json()
         created_car_id: str = create_response_data["_id"]
@@ -44,3 +54,12 @@ async def test_create_find_delete_car():
         # test the delete_car POST request
         delete_response = await ac.delete(f"/cars/{created_car_id}")
         assert delete_response.status_code == 204
+
+
+@pytest.mark.asyncio
+@pytest.mark.skip("TODO")
+async def test_update_car():
+    """
+    TODO
+    """
+    pass
