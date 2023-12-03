@@ -90,7 +90,6 @@ async def update_car(
     db: AsyncIOMotorDatabase = Depends(get_db),
     car_update: CarUpdate = Body(...),
 ) -> CarDB:
-    print(car_update.dict(exclude_unset=True))
     await db[CAR_COLLECTION].update_one(
         {"_id": id}, {"$set": car_update.dict(exclude_unset=True)}
     )

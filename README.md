@@ -40,6 +40,10 @@ http "http://localhost:8000/"
 
 The frontend is built using Svelte and SvelteKit
 
+## Tests
+
+To run the backend tests, do `pytest backend/tests`
+
 ## References
 
 - [Full Stack FastAPI, React, and MongoDB, published by Packt](https://github.com/PacktPublishing/Full-Stack-FastAPI-React-and-MongoDB/tree/main)
