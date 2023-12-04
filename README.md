@@ -14,6 +14,12 @@ DB_NAME=""
 CARS_COLLECTION_NAME=""
 ```
 
+In the `backend/data/data_script.py`, we have the code needed to upload the data in `backend/data/cars_data.csv` to MongoDB Atlas according to the data model defined in `backend/app/models/car_model.py`. Run it with
+
+```bash
+python -m backend.data.data_script
+```
+
 ## Backend
 
 The backend is written in FastAPI and requires Python 3.12

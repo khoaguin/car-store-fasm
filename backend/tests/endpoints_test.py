@@ -18,6 +18,9 @@ async def test_list_all_cars():
 
 @pytest.mark.asyncio
 async def test_list_cars():
+    """
+    TODO: test listing cars based on some conditions
+    """
     async with AsyncClient(app=app, base_url=BASE_TEST_URL) as ac:
         response = await ac.get("/cars/")
         assert response.status_code == 200
@@ -59,7 +62,4 @@ async def test_create_find_delete_car():
 @pytest.mark.asyncio
 @pytest.mark.skip("TODO")
 async def test_update_car():
-    """
-    TODO
-    """
     pass
