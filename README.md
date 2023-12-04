@@ -1,8 +1,8 @@
-# Car Selling Store App
+# AI-powered Car Selling Store
 
 ![](./assets/banner.png)
 
-A Car Selling Store App Written in FastAPI, Svelte and MongoDB.
+An AI-powered Car Selling Store App Written in FastAPI, Svelte and MongoDB.
 
 ## Database
 

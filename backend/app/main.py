@@ -56,40 +56,11 @@ async def home(request: Request) -> HTMLResponse:
                 <title>Home Page</title>
             </head>
             <body>
-                <h1>Welcome to the Home Page</h1>
-                <p>This is a simple HTML response from FastAPI.</p>
+                <h1>Welcome to the Car Selling Store</h1>
+                <p>Here are the current cars we have: </p>
             </body>
         </html>
     """
-
-
-@app.post("/upload_data", response_description="Upload all data")
-async def upload_data(request: Request):
-    import csv
-    from pathlib import Path
-
-    from fastapi.encoders import jsonable_encoder
-
-    from .models.car_model import CarBase
-
-    cars_collection: AsyncIOMotorCollection = request.app.mongodb["cars"]
-
-    with open(Path.cwd() / "backend/data/cars_data.csv", encoding="utf-8") as f:
-        csv_reader = csv.DictReader(f)
-        name_records = list(csv_reader)
-
-    for rec in name_records:
-        try:
-            rec["price"] = int(rec["price"])
-            rec["year"] = int(rec["year"])
-            rec["cm3"] = int(float(rec["cm3"]))
-
-            if rec["price"] > 1000:
-                car = jsonable_encoder(CarBase(**rec))
-                print("Inserting:", car)
-                cars_collection.insert_one(car)
-        except ValueError as e:
-            print(e)
 
 
 app.include_router(cars_router, prefix="/cars", tags=["cars"])
