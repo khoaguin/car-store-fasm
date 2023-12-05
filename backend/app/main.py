@@ -1,15 +1,22 @@
 from pprint import pprint
 
 from decouple import config
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
-from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorCollection
+from motor.motor_asyncio import (AsyncIOMotorClient, AsyncIOMotorCollection,
+                                 AsyncIOMotorDatabase)
 
+from .dependencies.database import get_db
 from .routers.cars import router as cars_router
 
 DB_URL = config("DB_URL", cast=str)
 DB_NAME = config("DB_NAME", cast=str)
+if config("DEV_MODE"):
+    CAR_COLLECTION = config("CARS_COLLECTION_NAME", cast=str) + "_dev"
+else:
+    CAR_COLLECTION = config("CARS_COLLECTION_NAME", cast=str)
+
 
 # define origins that are allowed to access the serve
 origins = [
@@ -42,14 +49,23 @@ app.add_event_handler("shutdown", shutdown_db_client)
 
 
 @app.get("/", response_class=HTMLResponse)
-async def home(request: Request) -> HTMLResponse:
+async def home(
+    db: AsyncIOMotorDatabase = Depends(get_db),
+) -> HTMLResponse:
     """Home page"""
-    print("this is our home page")
-    cars_collection: AsyncIOMotorCollection = request.app.mongodb["cars_dev"]
+    cars_collection: AsyncIOMotorCollection = db[CAR_COLLECTION]
     documents = []
-    async for document in cars_collection.find():
+    num_cars = 10
+    async for document in cars_collection.find().limit(num_cars):
         documents.append(document)
-    return """
+
+    # Generate HTML for some cars
+    cars_html = ""
+    for car in documents:
+        car_info = f"<li>{car['brand']} {car['make']} (year={car['year']}, price=${car['price']})</li>"
+        cars_html += car_info
+
+    return f"""
         <!DOCTYPE html>
         <html>
             <head>
@@ -57,7 +73,10 @@ async def home(request: Request) -> HTMLResponse:
             </head>
             <body>
                 <h1>Welcome to the Car Selling Store</h1>
-                <p>Here are the current cars we have: </p>
+                <p>Here are the some cars we have in store: </p>
+                <ul>
+                    {cars_html}
+                </ul>
             </body>
         </html>
     """

@@ -25,8 +25,8 @@ python -m backend.data.data_script
 The backend is written in FastAPI and requires Python 3.12
 
 ```bash
-conda create -n python3.12 python=3.12
-conda activate python3.12
+conda create -n carstore python=3.12
+conda activate carstore
 pip install -r backend/requirements.txt
 ```
 

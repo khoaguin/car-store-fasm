@@ -9,6 +9,14 @@ BASE_TEST_URL = "http://test"
 
 
 @pytest.mark.asyncio
+async def test_home():
+    async with AsyncClient(app=app, base_url=BASE_TEST_URL) as ac:
+        response = await ac.get("/")
+        assert response.status_code == 200
+        assert "<title>Home Page</title>" in response.text
+
+
+@pytest.mark.asyncio
 async def test_list_all_cars():
     async with AsyncClient(app=app, base_url=BASE_TEST_URL) as ac:
         response = await ac.get("/cars/all_cars")
