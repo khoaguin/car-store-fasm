@@ -24,6 +24,8 @@ origins = [
 ]
 
 app = FastAPI()
+app.include_router(cars_router, prefix="/cars", tags=["cars"])
+
 
 # configure CORS
 app.add_middleware(
@@ -55,7 +57,7 @@ async def home(
     """Home page"""
     cars_collection: AsyncIOMotorCollection = db[CAR_COLLECTION]
     documents = []
-    num_cars = 10
+    num_cars = 10  # only get the first 10 cars
     async for document in cars_collection.find().limit(num_cars):
         documents.append(document)
 
@@ -80,6 +82,3 @@ async def home(
             </body>
         </html>
     """
-
-
-app.include_router(cars_router, prefix="/cars", tags=["cars"])

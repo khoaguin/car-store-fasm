@@ -20,6 +20,8 @@ In the `backend/data/data_script.py`, we have the code needed to upload the data
 python -m backend.data.data_script
 ```
 
+> Note: If you get the `pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed`, it maybe because you try to connect to the database from the address which is not on the list of allowed IPs for accessing your MongoDB database. To fix this, you'll need to add your current IP address to the IP whitelist in your MongoDB Atlas account.
+
 ## Backend
 
 The backend is written in FastAPI and requires Python 3.12
@@ -41,6 +43,8 @@ Assuming the backend server is run at `http://localhost:8000/`, we can test it w
 ```bash
 http "http://localhost:8000/"
 ```
+
+The backend is deployed on AWS Elastic Beanstalk at the URL `http://car-store-fasm-dev.ap-southeast-1.elasticbeanstalk.com/`
 
 ## Frontend
 
