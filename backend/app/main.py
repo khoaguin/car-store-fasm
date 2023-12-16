@@ -18,15 +18,14 @@ else:
     CAR_COLLECTION = config("CARS_COLLECTION_NAME", cast=str)
 
 
-# define origins that are allowed to access the serve
-origins = [
-    "http://localhost:5000",  # default port for the Svelte frontend
-]
-
 app = FastAPI()
 app.include_router(cars_router, prefix="/cars", tags=["cars"])
 
-
+# define origins that are allowed to access the serve
+origins = [
+    "http://localhost:8000",  # local FastAPI backend
+    "http://localhost:5173",  # local Svelte frontend
+]
 # configure CORS
 app.add_middleware(
     CORSMiddleware,

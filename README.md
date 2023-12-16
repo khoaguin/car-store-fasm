@@ -24,7 +24,7 @@ python -m backend.data.data_script
 
 ## Backend
 
-The backend is written in FastAPI and requires Python 3.12
+The backend is written in FastAPI and requires Python 3.11
 
 ```bash
 conda create -n carstore python=3.11
@@ -48,7 +48,8 @@ The backend is deployed on AWS Elastic Beanstalk at the URL `http://car-store-fa
 
 ## Frontend
 
-The frontend is built using Svelte and SvelteKit
+The frontend is built using Svelte 5.0 and SvelteKit 2.0
+To run the frontend do `npm run dev`
 
 ## Tests
 
