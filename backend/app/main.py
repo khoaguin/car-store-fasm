@@ -3,7 +3,7 @@ from pprint import pprint
 from decouple import config
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, Response
 from motor.motor_asyncio import (AsyncIOMotorClient, AsyncIOMotorCollection,
                                  AsyncIOMotorDatabase)
 
@@ -50,35 +50,49 @@ app.add_event_handler("startup", startup_db_client)
 app.add_event_handler("shutdown", shutdown_db_client)
 
 
+# @app.get("/", response_class=HTMLResponse)
+# async def home(
+#     db: AsyncIOMotorDatabase = Depends(get_db),
+# ) -> HTMLResponse:
+#     """Home page"""
+#     cars_collection: AsyncIOMotorCollection = db[CAR_COLLECTION]
+#     documents = []
+#     num_cars = 10  # only get the first 10 cars
+#     async for document in cars_collection.find().limit(num_cars):
+#         documents.append(document)
+
+#     # Generate HTML for some cars
+#     cars_html = ""
+#     for car in documents:
+#         car_info = f"<li>{car['brand']} {car['make']} (year={car['year']}, price=${car['price']})</li>"
+#         cars_html += car_info
+
+#     return f"""
+#         <!DOCTYPE html>
+#         <html>
+#             <head>
+#                 <title>Home Page</title>
+#             </head>
+#             <body>
+#                 <h1>Welcome to the Car Selling Store</h1>
+#                 <p>Here are the some cars we have in store: </p>
+#                 <ul>
+#                     {cars_html}
+#                 </ul>
+#             </body>
+#         </html>
+#     """
+
+
 @app.get("/", response_class=HTMLResponse)
-async def home(
-    db: AsyncIOMotorDatabase = Depends(get_db),
-) -> HTMLResponse:
-    """Home page"""
-    cars_collection: AsyncIOMotorCollection = db[CAR_COLLECTION]
-    documents = []
-    num_cars = 10  # only get the first 10 cars
-    async for document in cars_collection.find().limit(num_cars):
-        documents.append(document)
-
-    # Generate HTML for some cars
-    cars_html = ""
-    for car in documents:
-        car_info = f"<li>{car['brand']} {car['make']} (year={car['year']}, price=${car['price']})</li>"
-        cars_html += car_info
-
-    return f"""
-        <!DOCTYPE html>
-        <html>
-            <head>
-                <title>Home Page</title>
-            </head>
-            <body>
-                <h1>Welcome to the Car Selling Store</h1>
-                <p>Here are the some cars we have in store: </p>
-                <ul>
-                    {cars_html}
-                </ul>
-            </body>
-        </html>
+async def read_items():
+    return """
+    <html>
+        <head>
+            <title>Welcome To DKAI Car Store</title>
+        </head>
+        <body>
+            <h1>Here you can design your own cars</h1>
+        </body>
+    </html>
     """
