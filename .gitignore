@@ -3,7 +3,10 @@
 notebooks/
 **/__pycache__/
 **/.pytest_cache/
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+logs.txt
