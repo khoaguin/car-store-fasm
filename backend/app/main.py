@@ -50,18 +50,6 @@ app.add_event_handler("startup", startup_db_client)
 app.add_event_handler("shutdown", shutdown_db_client)
 
 
-# @app.get("/", response_class=HTMLResponse)
-# async def read_items():
-#     return """
-#     <html>
-#         <body>
-#             <h1>Welcome To DKAI Car Store</h1>
-#             <h2>Here you can find and design your own cars<h2>
-#         </body>
-#     </html>
-#     """
-
-
 @app.get("/", response_class=HTMLResponse)
 async def home(
     db: AsyncIOMotorDatabase = Depends(get_db),
@@ -86,7 +74,7 @@ async def home(
                 <title>Home Page</title>
             </head>
             <body>
-                <h1>Welcome to the Car Selling Store</h1>
+                <h1>Welcome to DKAI Car Selling Store</h1>
                 <p>Here are the some cars we have in store: </p>
                 <ul>
                     {cars_html}

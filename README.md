@@ -20,7 +20,7 @@ In the `backend/data/data_script.py`, we have the code needed to upload the data
 python -m backend.data.data_script
 ```
 
-> Note: If you get the `pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed`, it maybe because you try to connect to the database from the address which is not on the list of allowed IPs for accessing your MongoDB database. To fix this, you'll need to add your current IP address to the IP whitelist in your MongoDB Atlas account.
+> Note: If you get the `pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed`, it is probably because you try to connect to the database from an IP address which is not on the list of allowed IPs for accessing your MongoDB database. To fix this, you'll need to add your current IP address to the IP whitelist in your MongoDB Atlas account. Or you can allow access from anywhere in the `Network Access` tab of MongoDB Atlas
 
 ## Backend
 
