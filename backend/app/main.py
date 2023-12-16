@@ -51,48 +51,46 @@ app.add_event_handler("shutdown", shutdown_db_client)
 
 
 # @app.get("/", response_class=HTMLResponse)
-# async def home(
-#     db: AsyncIOMotorDatabase = Depends(get_db),
-# ) -> HTMLResponse:
-#     """Home page"""
-#     cars_collection: AsyncIOMotorCollection = db[CAR_COLLECTION]
-#     documents = []
-#     num_cars = 10  # only get the first 10 cars
-#     async for document in cars_collection.find().limit(num_cars):
-#         documents.append(document)
-
-#     # Generate HTML for some cars
-#     cars_html = ""
-#     for car in documents:
-#         car_info = f"<li>{car['brand']} {car['make']} (year={car['year']}, price=${car['price']})</li>"
-#         cars_html += car_info
-
-#     return f"""
-#         <!DOCTYPE html>
-#         <html>
-#             <head>
-#                 <title>Home Page</title>
-#             </head>
-#             <body>
-#                 <h1>Welcome to the Car Selling Store</h1>
-#                 <p>Here are the some cars we have in store: </p>
-#                 <ul>
-#                     {cars_html}
-#                 </ul>
-#             </body>
-#         </html>
+# async def read_items():
+#     return """
+#     <html>
+#         <body>
+#             <h1>Welcome To DKAI Car Store</h1>
+#             <h2>Here you can find and design your own cars<h2>
+#         </body>
+#     </html>
 #     """
 
 
 @app.get("/", response_class=HTMLResponse)
-async def read_items():
-    return """
-    <html>
-        <head>
-            <title>Welcome To DKAI Car Store</title>
-        </head>
-        <body>
-            <h1>Here you can design your own cars</h1>
-        </body>
-    </html>
+async def home(
+    db: AsyncIOMotorDatabase = Depends(get_db),
+) -> HTMLResponse:
+    """Home page"""
+    cars_collection: AsyncIOMotorCollection = db[CAR_COLLECTION]
+    documents = []
+    num_cars = 10  # only get the first 10 cars
+    async for document in cars_collection.find().limit(num_cars):
+        documents.append(document)
+
+    # Generate HTML for some cars
+    cars_html = ""
+    for car in documents:
+        car_info = f"<li>{car['brand']} {car['make']} (year={car['year']}, price=${car['price']})</li>"
+        cars_html += car_info
+
+    return f"""
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Home Page</title>
+            </head>
+            <body>
+                <h1>Welcome to the Car Selling Store</h1>
+                <p>Here are the some cars we have in store: </p>
+                <ul>
+                    {cars_html}
+                </ul>
+            </body>
+        </html>
     """
