@@ -35,7 +35,7 @@ pip install -r backend/requirements.txt
 To run the backend server, run the following in the terminal
 
 ```bash
-uvicorn backend.app.main:app --reload
+bash backend.sh
 ```
 
 Assuming the backend server is run at `http://localhost:8000/`, we can test it with the installed `HTTPie` Python package like below
@@ -49,7 +49,11 @@ The backend is deployed on AWS Elastic Beanstalk at the URL `http://car-store-fa
 ## Frontend
 
 The frontend is built using Svelte 5.0 and SvelteKit 2.0
-To run the frontend do `npm run dev`
+To run the frontend do
+
+```bash
+bash frontend.sh
+```
 
 ## Tests
 
