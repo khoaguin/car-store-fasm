@@ -10,7 +10,8 @@
 </script>
 
 <main>
-	<h1>Cars</h1>
+	<h1>Welcome to DKAI Car Selling Store</h1>
+	<h2>Here are the some cars we have in store</h2>
 	{#if cars.length > 0}
 		<ul>
 			{#each cars as car}
