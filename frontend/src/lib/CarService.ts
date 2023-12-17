@@ -11,6 +11,7 @@ interface Car {
 
 export async function getCars(): Promise<Car[]> {
   try {
+    // TODO: make fetching data work with the Backend API deployed at BeanStalk
     // const response = await fetch('http://car-store-fasm-dev.ap-southeast-1.elasticbeanstalk.com/cars/');
     const response = await fetch('http://localhost:8000/cars');
     if (!response.ok) {
